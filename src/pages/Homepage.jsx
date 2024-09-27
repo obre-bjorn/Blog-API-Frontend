@@ -1,11 +1,15 @@
+import { Outlet } from "react-router-dom"
+
 import Navbar from "../components/Navbar"
 
-function Homepage() {
+
+function HomePage() {
   return (
     <>
         <Navbar />
+        <Outlet/>
     </>
   )
 }
 
-export default Homepage
+export default HomePage
