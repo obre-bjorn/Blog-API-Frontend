@@ -21,11 +21,11 @@ function LoginPage() {
 
     }
 
-    const handleSubmit = function(e){
+    const handleSubmit = async function(e){
+
+
         e.preventDefault()
         console.log(formData)
-
-
 
     }
 

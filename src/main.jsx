@@ -8,6 +8,8 @@ import HomePage from './pages/HomePage.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
+import BlogsPage from './pages/BlogsPage.jsx'
+import BlogDetailPage from './pages/BlogDetailPage.jsx'
 
 
 
@@ -16,6 +18,19 @@ const router = createBrowserRouter ([
     {
       path: "/",
       element : <HomePage/>,
+      children : [
+        {
+          path: "/blogs",
+          element : <BlogsPage />
+
+        },
+        {
+          path: "/blog/:blogId",
+          element : <BlogDetailPage />
+
+        },
+
+      ],
       errorElement : ErrorPage
     },
     {
