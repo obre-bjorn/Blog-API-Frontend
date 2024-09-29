@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 
 
-const useFetch = (url,options = {},autoFetch) => {
+const useFetch = (url,options = {},autoFetch = true) => {
 
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -22,20 +22,21 @@ const useFetch = (url,options = {},autoFetch) => {
 
             if(!response.ok){
                 
-                throw new Error(`Error: ${response.statusText}`)
+                throw new Error(`Error: ${response.msg}`)
 
             }
             
 
             if(fetchOptions.method !== "DELETE"){
-                setData(res.data)
+                setData(response.data)
             }
 
 
-            setData(res.data)
 
-        } catch (error) {
 
+        } catch (err) {
+
+            setError(err.message)
             
         }finally{
             setLoading(false)
@@ -49,34 +50,28 @@ const useFetch = (url,options = {},autoFetch) => {
 
     useEffect( () => {
 
+        if(autoFetch){
 
-
-        const fetchData async (url) => {
-
-            try {
-                
-                const data = await fetch(url )
-
-
-
-            } catch (error) {
-                
-            }
-
+            fetchData(url, {method: "GET"})
 
         }
 
-        fetchData()
 
     }, [url]) 
 
 
 
+    return {
+        data,
+        loading,
+        error,
+        get :  () => fetchData({method: "GET"}),
+        post : (body) => fetchData({method : "POST", body : JSON.stringify(body)}),
+        put :  (body) => fetchData({method : "PUT", body: JSON.stringify(body)}),
+        del :  () => fetchData({method :  "DELETE"})
+    }
+
 }
-
-
-
-
 
 
 
