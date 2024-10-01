@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-
+import { useAuth } from "./useAuth";
 
 const useFetch = (url,options = {},autoFetch = true) => {
-
+    const {token} = useAuth()
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -17,7 +17,15 @@ const useFetch = (url,options = {},autoFetch = true) => {
         try {
             const response = await fetch(url,{
                 ...options,
-                ...fetchOptions
+                ...fetchOptions,
+
+                headers : {
+                    'Content-Type' : 'application/json',
+                    Authorization : token ? token : '',
+                    ...options.headers
+
+                }
+                
             })
 
             if(!response.ok){
@@ -25,11 +33,12 @@ const useFetch = (url,options = {},autoFetch = true) => {
                 throw new Error(`Error: ${response.msg}`)
 
             }
+
             
 
-            if(fetchOptions.method !== "DELETE"){
-                setData(response.data)
-            }
+            
+            setData(response.data)
+            
 
 
 
