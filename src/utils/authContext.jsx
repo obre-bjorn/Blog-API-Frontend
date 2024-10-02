@@ -12,11 +12,12 @@ export const AuthContext = createContext()
 
 function useProviderAuth() {
 
+
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(localStorage.getItem('token') || null)
 
 
-    const { post,error, loading} = useFetch('login',token,{}, false)
+    const { post } = useFetch('login',token,{}, false)
 
 
     const login = async ({username,password}) => {
@@ -65,8 +66,6 @@ function useProviderAuth() {
             user,
             token,
             isAuthenticated,
-            loading,
-            error,
             login,
             logout,
         }
