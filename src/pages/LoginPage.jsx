@@ -37,7 +37,7 @@ function LoginPage() {
 
         try {
             
-           const result =  await login(formData)
+            const result = await login(formData)
 
             console.log("RESULT",result)
 

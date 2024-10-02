@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 const useFetch = (url,token,options={},autoFetch = true) => {
 
-    const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -32,15 +31,7 @@ const useFetch = (url,token,options={},autoFetch = true) => {
 
             })
 
-            const data = await response.json()
-
-            console.log("RESPONSE FETCH: ", data)
-            
-            // setData(response.data)
-            
-
-
-
+            return response
 
         } catch (err) {
 
@@ -70,7 +61,6 @@ const useFetch = (url,token,options={},autoFetch = true) => {
 
 
     return {
-        data,
         loading,
         error,
         get :  () => fetchData({method: "GET"}),

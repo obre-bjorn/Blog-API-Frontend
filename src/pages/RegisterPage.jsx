@@ -42,7 +42,7 @@ const handleChange = function (e) {
       
       const response = post(formData)
 
-      if(response.status === 200){
+      if(response.status == 200){
 
         navigate('/login')
         console.log("Registered successfully")

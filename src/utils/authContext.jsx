@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext } from "react";
+import { createContext, useContext} from "react";
 import { useState } from "react"
 import useFetch from "../hooks/useFetch"
 
@@ -16,32 +16,30 @@ function useProviderAuth() {
     const [token, setToken] = useState(localStorage.getItem('token') || null)
 
 
-    const{ post,error, loading} = useFetch('login',token,{}, false)
+    const { post,error, loading} = useFetch('login',token,{}, false)
 
 
     const login = async ({username,password}) => {
 
         try {
 
-            const response = await post({username, password})
+            const response =   await post({username, password})
+ 
+            
+            if (response.ok ){
 
-            console.log("RESPONSE", response)
-            // if (response.status == 200){
-
-            //     if(response.token && response.user){
-    
-            //         const {user,token} = response
+                    const {user,token} = await response.json()
     
     
-            //         localStorage.setItem('token',token)
+                    localStorage.setItem('token',token)
     
-            //         setUser(user)
-            //         setToken(token)
+                    setUser(user)
+                    setToken(token)
     
     
-            //         return response
-            //     }
-            // }
+                    return response.status
+                }
+            
 
 
         } catch (error) {
