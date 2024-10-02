@@ -9,6 +9,10 @@ import Input from "../components/Input"
 function RegisterPage() {
 
   const navigate = useNavigate()
+  const {post,loading, error} = useFetch('register', "",{}, false)
+
+
+
   const [formData, setFormData] = useState({
 
     username: "",
@@ -17,7 +21,6 @@ function RegisterPage() {
 
   })
 
-  const {post,loading, error} = useFetch('register', {}, false)
   
 
 
@@ -40,11 +43,11 @@ const handleChange = function (e) {
 
     try {
       
-      const response = post(formData)
+      const response = await post(formData)
 
       if(response.status == 200){
 
-        navigate('/login')
+        // navigate('/login')
         console.log("Registered successfully")
 
 
