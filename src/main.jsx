@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 
 import './index.css'
-import { AuthProvider } from './utils/authContext.jsx'
+import { AuthProvider } from './utils/AuthContext.jsx'
 import HomePage from './pages/HomePage.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'

@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom"
 
 import Form from "../components/Form"
 import Input from "../components/Input"
-import { useAuth } from "../hooks/useAuth"
+import { useAuth } from "../utils/AuthContext"
 
 
 function LoginPage() {
 
 
-    const {login, loading} = useAuth
+    const {login, loading} = useAuth()
 
     const [formData,setFormData ]  = useState({
         username: "",
@@ -37,13 +37,16 @@ function LoginPage() {
 
         try {
             
-            await login(formData)
-            navigate('/')
+           const result =  await login(formData)
+
+            console.log("RESULT",result)
+
+
+            // navigate('/')
 
         } catch(err) {
             console.error('Login Failed: ', err)
         }
-        console.log(formData)
 
     }
 

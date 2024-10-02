@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { useAuth } from "./useAuth";
 
-const useFetch = (url,options = {},autoFetch = true) => {
-    const {token} = useAuth()
+
+
+
+const useFetch = (url,token,options={},autoFetch = true) => {
+
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -15,7 +17,8 @@ const useFetch = (url,options = {},autoFetch = true) => {
         setError(null)
 
         try {
-            const response = await fetch(url,{
+
+            const response = await fetch("http://localhost:5000/" + url,{
                 ...options,
                 ...fetchOptions,
 
@@ -26,18 +29,14 @@ const useFetch = (url,options = {},autoFetch = true) => {
 
                 }
                 
+
             })
 
-            if(!response.ok){
-                
-                throw new Error(`Error: ${response.msg}`)
+            const data = await response.json()
 
-            }
-
+            console.log("RESPONSE FETCH: ", data)
             
-
-            
-            setData(response.data)
+            // setData(response.data)
             
 
 
@@ -66,7 +65,7 @@ const useFetch = (url,options = {},autoFetch = true) => {
         }
 
 
-    }, [url]) 
+    }, [url,token]) 
 
 
 

@@ -1,9 +1,79 @@
 /* eslint-disable react/prop-types */
-import { createContext } from "react";
+import { createContext, useContext } from "react";
+import { useState } from "react"
+import useFetch from "../hooks/useFetch"
 
-import useProviderAuth from "../hooks/useProviderAuth";
+
+
 
 export const AuthContext = createContext()
+
+
+
+function useProviderAuth() {
+
+    const [user, setUser] = useState(null)
+    const [token, setToken] = useState(localStorage.getItem('token') || null)
+
+
+    const{ post,error, loading} = useFetch('login',token,{}, false)
+
+
+    const login = async ({username,password}) => {
+
+        try {
+
+            const response = await post({username, password})
+
+            console.log("RESPONSE", response)
+            // if (response.status == 200){
+
+            //     if(response.token && response.user){
+    
+            //         const {user,token} = response
+    
+    
+            //         localStorage.setItem('token',token)
+    
+            //         setUser(user)
+            //         setToken(token)
+    
+    
+            //         return response
+            //     }
+            // }
+
+
+        } catch (error) {
+
+            console.error("Login context: ", error )
+            return error
+
+        }
+
+        
+    }
+
+    const logout  =  ()  => {
+        setUser(null)
+        setToken(null)
+        localStorage.removeItem('token')
+    }
+   
+    
+    const isAuthenticated = !!token
+
+    return {
+            user,
+            token,
+            isAuthenticated,
+            loading,
+            error,
+            login,
+            logout,
+        }
+    
+}
 
 
 export const AuthProvider = ({children} ) =>{
@@ -13,6 +83,16 @@ export const AuthProvider = ({children} ) =>{
 
     return <AuthContext.Provider value = {auth}> {children}</AuthContext.Provider>
 
+}
+
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
 }
 
 
