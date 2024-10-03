@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 
 
 
 
-const useFetch = (url,token,options={},autoFetch = true) => {
+const useFetch = (url,token,options={}) => {
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -45,18 +45,6 @@ const useFetch = (url,token,options={},autoFetch = true) => {
 
 
     }
-
-
-    useEffect( () => {
-
-        if(autoFetch){
-
-            fetchData(url, {method: "GET"})
-
-        }
-
-
-    }, [url,token]) 
 
 
 

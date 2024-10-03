@@ -42,7 +42,7 @@ function LoginPage() {
             console.log("RESULT",result)
 
 
-            // navigate('/')
+            navigate('/')
 
         } catch(err) {
             console.error('Login Failed: ', err)

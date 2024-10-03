@@ -47,7 +47,7 @@ const handleChange = function (e) {
 
       if(response.status == 200){
 
-        // navigate('/login')
+        navigate('/login')
         console.log("Registered successfully")
 
 
