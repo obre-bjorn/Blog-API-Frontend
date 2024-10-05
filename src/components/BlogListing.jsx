@@ -1,11 +1,16 @@
-import useFetch from "../hooks/useFetch"
 
 import Blog from "./Blog"
 
 
-function BlogListing() {
+function BlogListing(posts) {
+
+  const blogs = posts.map((post) => <Blog key={post.id} blog={post}/>)
+
+
   return (
-    <div>BlogListing</div>
+    <>
+      {blogs}
+    </>
   )
 }
 
