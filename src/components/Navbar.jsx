@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
+import { useAuth } from "../utils/AuthContext"
 
 
 function Navbar() {
+
+    const {user} = useAuth()
 
 
     return (
@@ -14,7 +17,8 @@ function Navbar() {
                     <Link className="text-white hover:text-black" href="#">Profile</Link>
                 </div>
 
-                <a className="text-white hover:text-black" href="#">Log In</a>
+
+                {!user ? <Link to="/login" className="text-white hover:text-black" >Log In</Link> : <h1>Log Out</h1>}
             </nav>
 
         </div>

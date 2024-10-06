@@ -1,18 +1,21 @@
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
 import useFetch from '../hooks/useFetch'
+import { useAuth } from "../utils/AuthContext"
 
 import Input from "../components/Input"
 
 
 function BlogDetailPage() {
 
+
+    const{user,token} = useAuth()
     const {blogId} = useParams()
     const [formData,setFormData] = useState({content : ""})
     const [blog,setBlog] = useState()
 
     const{get : getBlogDetail, loading : blogLoading, error: blogError} = useFetch( `post/${blogId}`)
-    const{post : postNewComment,loading: commentPostLoading,error: commentPostError} = useFetch(`post/${blogId}/comment`)
+    const{post : postNewComment,loading: commentPostLoading,error: commentPostError} = useFetch(`post/${blogId}/comment`,token,{},false)
 
     useEffect ( ( ) => {
 
@@ -45,12 +48,16 @@ async function submitComment(e){
 
     e.preventDefault()
 
-    const response  = await postNewComment()
+    const response  = await postNewComment(formData)
 
     if(response.ok){
-        console.log("Comment submitted");
-        
+
+        console.log("Comment submitted");   
+    }else{
+
+        console.log("An error occured")
     }
+
 
 
 }
@@ -79,13 +86,14 @@ async function submitComment(e){
         <h1 className="text-3xl text-center mb-5" >{blog.title}</h1>
         <div className="flex justify-end mb-8 gap-5">
             <p >pubished: {blog.createdAt}</p>
-            <p>By: {blog.authorId}</p>
+            <p>By: {blog.author.username}</p>
         </div>
         <p className="mb-8">{blog.content}</p>
 
-        
-            <Input handleChange={handleChange} inputName="content" inputType= "text" labelName="Write comment" placeholder="Write your comment here"/>
+            
+            <Input handleChange={handleChange} inputName="content" inputType= "text" labelName="Write comment" placeholder="Write your comment here" value={formData.content} />
             <button onClick={submitComment} className="bg-purple-600 text-white px-5 py-3 rounded-sm" > Send</button>
+            {commentPostLoading && <span>Submitting your comment</span> }
 
         <h1 className=" my-5 text-2xl text-purple-600">Comments:</h1>
 
@@ -93,14 +101,21 @@ async function submitComment(e){
 
         <div className="flex-col gap-5">
 
-            {blog.comments.map((comment) => {
-                return (
-                    <div key = {comment.id} className="bg-purple-300  rounded-lg mb-5 p-3 shadow-sm">
-                        <p>{comment.content}</p>
-                        <p className="text-right mt-2">By: {comment.author}</p>
-                    </div>
-                )
-            })}
+            
+
+            {blog.comments.length > 0 ? 
+
+                blog.comments.map((comment) => {
+                    return (
+                        <div key = {comment.id} className="bg-purple-300  rounded-lg mb-5 p-3 shadow-sm">
+                            <p>{comment.content}</p>
+                            <p className="text-right mt-2">By: {comment.author.username}</p>
+                        </div>
+                    )}) : 
+                    
+                <h1>No comments yet!</h1>
+            
+            }
             
         </div>
         </>}
