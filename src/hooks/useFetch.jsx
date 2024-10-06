@@ -31,10 +31,9 @@ const useFetch = (url,token,options={}) => {
 
             })
 
-            if(!response.ok){
-                console.log("Response Error: ",response)
-                throw new Error("Something went wrong")
-            }
+            // if(!response.status ===){
+            //     throw new Error("Something went wrong")
+            // }
             
             return response
 
@@ -45,6 +44,7 @@ const useFetch = (url,token,options={}) => {
         } catch (err) {
 
             setError(err)
+            
             
         }finally{
             setLoading(false)

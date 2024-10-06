@@ -9,7 +9,7 @@ import { useAuth } from "../utils/AuthContext"
 function LoginPage() {
 
 
-    const {login, loading} = useAuth()
+    const {login} = useAuth()
 
     const [formData,setFormData ]  = useState({
         username: "",
@@ -38,12 +38,12 @@ function LoginPage() {
         try {
             
             const result = await login(formData)
+        
+            if(result.ok){
+                navigate('/')
+            }
 
-            console.log("RESULT",result)
-
-
-            navigate('/')
-
+            
         } catch(err) {
             console.error('Login Failed: ', err)
         }
@@ -59,7 +59,7 @@ function LoginPage() {
             <Input handleChange={handleChange} inputName="username" inputType="text" labelName="Username" placeholder="Enter username"/>
             <Input handleChange={handleChange} inputName="password" inputType="password" labelName="Password" placeholder="Enter password"/>
 
-            <button className="bg-purple-600 text-white my-5 px-5 py-3 rounded-sm" disabled={loading}>Login</button>
+            <button className="bg-purple-600 text-white my-5 px-5 py-3 rounded-sm">Login</button>
         </Form>
 
     </div>

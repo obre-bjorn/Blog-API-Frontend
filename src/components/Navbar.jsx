@@ -3,8 +3,18 @@ import { useAuth } from "../utils/AuthContext"
 
 
 function Navbar() {
+    
+    const {isAuthenticated,logout} = useAuth()
 
-    const {user} = useAuth()
+
+    function handleLogout(){
+
+
+        logout()
+        console.log("You are logged out")
+
+    }
+
 
 
     return (
@@ -18,7 +28,9 @@ function Navbar() {
                 </div>
 
 
-                {!user ? <Link to="/login" className="text-white hover:text-black" >Log In</Link> : <h1>Log Out</h1>}
+                {!isAuthenticated ? 
+                    <Link to="/login" className="text-white hover:text-black" >Log In </Link> 
+                        : <button onClick={handleLogout}>Log Out</button>}
             </nav>
 
         </div>

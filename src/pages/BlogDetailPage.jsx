@@ -9,7 +9,7 @@ import Input from "../components/Input"
 function BlogDetailPage() {
 
 
-    const{user,token} = useAuth()
+    const{token} = useAuth()
     const {blogId} = useParams()
     const [formData,setFormData] = useState({content : ""})
     const [blog,setBlog] = useState()

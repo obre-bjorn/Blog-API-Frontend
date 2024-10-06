@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import useFetch from "../hooks/useFetch"
 import BlogListing from "../components/BlogListing"
+import { useAuth } from "../utils/AuthContext"
 
 
 
 function BlogsPage() {
 
-
+    const {user} = useAuth()
     const {get,loading, error} = useFetch('posts','',{})
     const [blogs, setBlogs] = useState([])
 
@@ -41,7 +42,7 @@ function BlogsPage() {
 
   return (
     <>
-        <h1 className= "text-3xl">RECENT POSTS: </h1>
+        <h1 className= "text-3xl">{`RECENT POSTS: ${user}`}</h1>
 
         <div className="grid grid-cols-3 gap-8 m-20">
 

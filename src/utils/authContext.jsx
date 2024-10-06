@@ -24,24 +24,24 @@ function useProviderAuth() {
 
         try {
 
-            const response =   await post({username, password})
- 
+            const response = await post({username, password})
             
-            if (response.ok ){
+            console.log('RESPONSE UPPER: ', response)
+            if (!response.ok){
 
-                    const {user,token} = await response.json()
+                throw new Error("Login failed")
+                    
+            }
+
+
+            const {user,token} = await response.json()
     
+            localStorage.setItem('token',token)
     
-                    localStorage.setItem('token',token)
-    
-                    setUser(user)
-                    setToken(token)
-    
-    
-                    return response.status
-                }
+            setUser(user)
+            setToken(token)
             
-
+            return response
 
         } catch (error) {
 
@@ -58,7 +58,7 @@ function useProviderAuth() {
         setToken(null)
         localStorage.removeItem('token')
     }
-   
+
     
     const isAuthenticated = !!token
 
