@@ -31,11 +31,20 @@ const useFetch = (url,token,options={}) => {
 
             })
 
+            if(!response.ok){
+                console.log("Response Error: ",response)
+                throw new Error("Something went wrong")
+            }
+            
             return response
+
+
+
+
 
         } catch (err) {
 
-            setError(err.message)
+            setError(err)
             
         }finally{
             setLoading(false)

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import useFetch from "../hooks/useFetch"
+import BlogListing from "../components/BlogListing"
 
 
 
@@ -21,6 +22,7 @@ function BlogsPage() {
                     const data = await response.json();
                     setBlogs(data.posts); // Set the blogs data
                 } else {
+                    console.log("Error: ",error)
                     console.log("Error fetching data");
                 }
             } catch (error) {
@@ -48,19 +50,10 @@ function BlogsPage() {
 
             {error && <h4> An error occured</h4>} 
 
-            {blogs.map((blog) => {
-
-            return ( <div key= {blog.id} className="max-w-prose bg-purple-400 p-10 shadow-md rounded-md hover:scale-110 hover:transition-transform">
-                    <p className="text-2xl text-center mb-8"> {blog.title} </p>
-                    <p>{blog.content.slice(0,150) + "..."}</p>
-                </div>)
-
-
-            })}
+            <BlogListing posts = {blogs}/>
 
 
         </div>
-
 
     </>
   )
