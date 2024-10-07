@@ -1,5 +1,6 @@
 
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import useFetch from "../hooks/useFetch"
 
@@ -77,6 +78,7 @@ const handleChange = function (e) {
         <Input inputName="password" inputType="password" labelName="Password" placeholder="*********" handleChange={handleChange} value = {formData.password}/>
 
         <button className="my-5 px-5 py-3 mx-auto bg-purple-600 text-white rounded-sm" disabled={loading}>Sign up</button>
+        <Link to="/login" className="text-purple-600 underline ml-6 ">Login</Link>
       </Form>
 
     </div>

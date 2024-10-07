@@ -31,11 +31,13 @@ const useFetch = (url,token,options={}) => {
 
             })
 
-            // if(!response.status ===){
-            //     throw new Error("Something went wrong")
-            // }
+            if(response.status === 200){
+
+                return response
+
+            }
             
-            return response
+            throw new Error("Something went wrong")
 
 
 

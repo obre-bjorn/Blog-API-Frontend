@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 
 import Form from "../components/Form"
@@ -43,7 +44,7 @@ function LoginPage() {
                 navigate('/')
             }
 
-            
+
         } catch(err) {
             console.error('Login Failed: ', err)
         }
@@ -59,7 +60,10 @@ function LoginPage() {
             <Input handleChange={handleChange} inputName="username" inputType="text" labelName="Username" placeholder="Enter username"/>
             <Input handleChange={handleChange} inputName="password" inputType="password" labelName="Password" placeholder="Enter password"/>
 
-            <button className="bg-purple-600 text-white my-5 px-5 py-3 rounded-sm">Login</button>
+            <span>
+                <button className="bg-purple-600 text-white my-5 px-5 py-3 rounded-sm">Login</button>
+                <Link to="/register" className="text-purple-600 underline ml-6 ">Register</Link>
+            </span>
         </Form>
 
     </div>

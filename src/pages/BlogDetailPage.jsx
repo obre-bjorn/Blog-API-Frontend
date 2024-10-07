@@ -1,3 +1,7 @@
+import { ToastContainer,toast,Bounce } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
+
+
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
 import useFetch from '../hooks/useFetch'
@@ -9,7 +13,7 @@ import Input from "../components/Input"
 function BlogDetailPage() {
 
 
-    const{token} = useAuth()
+    const {token} = useAuth()
     const {blogId} = useParams()
     const [formData,setFormData] = useState({content : ""})
     const [blog,setBlog] = useState()
@@ -49,16 +53,25 @@ async function submitComment(e){
     e.preventDefault()
 
     const response  = await postNewComment(formData)
+    console.log(response)
 
-    if(response.ok){
+    if(response){
 
         console.log("Comment submitted");   
     }else{
 
-        console.log("An error occured")
+        toast.error("Login to comment", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+        })
     }
-
-
 
 }
 
@@ -78,6 +91,8 @@ async function submitComment(e){
   return (
 
       <div className="mt-8 w-screen px-56">
+
+        
         {blogLoading && <h1> Loading Blog Data....</h1>}
         {blogError && <h1>An Error Occured while getting blog data</h1>}
 
@@ -94,6 +109,7 @@ async function submitComment(e){
             <Input handleChange={handleChange} inputName="content" inputType= "text" labelName="Write comment" placeholder="Write your comment here" value={formData.content} />
             <button onClick={submitComment} className="bg-purple-600 text-white px-5 py-3 rounded-sm" > Send</button>
             {commentPostLoading && <span>Submitting your comment</span> }
+            {commentPostError && <span>Login to Comment</span>}
 
         <h1 className=" my-5 text-2xl text-purple-600">Comments:</h1>
 
@@ -120,7 +136,7 @@ async function submitComment(e){
         </div>
         </>}
         
-
+        <ToastContainer/>
     </div>
   )
 }
