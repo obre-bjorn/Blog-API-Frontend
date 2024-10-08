@@ -41,17 +41,23 @@ function BlogsPage() {
 
   return (
     <>
-        <h1 className= "text-3xl">{`RECENT POSTS:`}</h1>
-
-        <div className="grid grid-cols-3 gap-8 m-20">
 
 
-            {loading && <h4>loading data</h4>}
+        <div className="container mx-auto px-4">
 
-            {error && <h4> An error occured</h4>} 
+            <h1 className= "text-3xl">{`RECENT POSTS:`}</h1>
 
-            <BlogListing posts = {blogs}/>
+            <div className=" grid gap-8 items-center place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-20 ">
 
+
+                {loading && <h4>loading data</h4>} 
+
+                {error && <h4> An error occured</h4>} 
+
+                <BlogListing posts = {blogs}/>
+
+
+            </div>
 
         </div>
 

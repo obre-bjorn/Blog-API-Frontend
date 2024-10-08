@@ -2,9 +2,12 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 
+import { toast, Bounce, ToastContainer } from "react-toastify"
+
 import Form from "../components/Form"
 import Input from "../components/Input"
 import { useAuth } from "../utils/AuthContext"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function LoginPage() {
@@ -41,7 +44,22 @@ function LoginPage() {
             const result = await login(formData)
         
             if(result.ok){
+                
+                toast.success("Login Successful", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                })
+
+                
                 navigate('/')
+
             }
 
 
@@ -66,6 +84,7 @@ function LoginPage() {
             </span>
         </Form>
 
+        {/* <ToastContainer/> */}
     </div>
   )
 }
