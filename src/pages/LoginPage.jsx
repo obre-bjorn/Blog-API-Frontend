@@ -6,7 +6,7 @@ import { toast, Bounce, ToastContainer } from "react-toastify"
 
 import Form from "../components/Form"
 import Input from "../components/Input"
-import { useAuth } from "../utils/AuthContext"
+import { useAuth } from "../utils/authContext"
 import 'react-toastify/dist/ReactToastify.css';
 
 
